@@ -1,0 +1,10 @@
+name: inspect
+description: A simple object/class/function formatter.
+version: 1.0.0
+homepage: https://github.com/devnote-dev/inspect/README.md
+
+environment:
+  sdk: '>=2.14.3 <3.0.0'
+
+dev_dependencies:
+  lints: ^1.0.0
