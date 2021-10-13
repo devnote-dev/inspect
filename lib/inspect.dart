@@ -61,6 +61,7 @@ String? p(String n) {
 
 /// Parses an object from a string and returns a string, number, or null.
 dynamic parseType(String obj) {
+  if (obj == 'null') return null;
   dynamic v = int.tryParse(obj);
   v ??= double.tryParse(obj);
   if (v == null) {
@@ -74,6 +75,7 @@ dynamic parseType(String obj) {
 /// Parses an object and returns the corresponding colours for the object
 /// in a formatted string.
 String? colourType(dynamic obj) {
+  if (obj == null) return p('bl')! + 'null' + p('re')!;
   if (obj is num || obj is List) return p('bl')! + obj.toString() + p('re')!;
 
   if (obj is String) {
@@ -103,9 +105,13 @@ String? colourType(dynamic obj) {
 
 /// Inspects an object and returns a formatted (and optionally coloured)
 /// string representation. This also covers nested objects/classes.
-String inspect(Object object, [bool? colour]) {
+String inspect(Object? object, [bool? colour]) {
   final type = object.runtimeType.toString();
   final c = colour ?? false;
+
+  if (object == null) {
+    if (c) return '${p("ye")}Null${p("re")} ${p("bl")}null${p("re")}';
+  }
 
   if (
     object is num ||
@@ -129,7 +135,7 @@ String inspect(Object object, [bool? colour]) {
     return '${type.substring(18)} {\n${object.map((e) => "  $e").join(",\n")}\n}';
   }
 
-  List<String> cls = parseClass(object, c);
+  List<String> cls = parseClass(object!, c);
   if (c) return '${p("ye")}$type${p("re")} {\n${cls.join("\n")}\n}';
   return '$type {\n${cls.join("\n")}\n}';
 }
