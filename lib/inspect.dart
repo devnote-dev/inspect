@@ -26,7 +26,8 @@ final colours = <String, String>{
 /// properties of a class.
 List<String> parseClass(Object cls, [bool? colour]) {
   colour ??= false;
-  String clsName = cls.toString().split("'")[1];
+  String clsName = cls.toString();
+  if (clsName.contains("'")) clsName = clsName.split("'")[1];
   InstanceMirror mirror = reflect(cls);
   List<String> res = [];
 
