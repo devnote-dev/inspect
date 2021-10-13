@@ -82,6 +82,10 @@ String? colourType(dynamic obj) {
     return p('gr')! + "'$obj'" + p('re')!;
   }
 
+  if (obj is bool) {
+    return '${p("cy")}$obj${p("re")}';
+  }
+
   if (obj is Map) {
     List<String> res = [];
     obj.forEach((k, v) => res.add('  ${colourType(k)} => ${colourType(v)}'));
@@ -103,7 +107,12 @@ String inspect(Object object, [bool? colour]) {
   final type = object.runtimeType.toString();
   final c = colour ?? false;
 
-  if (object is num || object is String || object is List) {
+  if (
+    object is num ||
+    object is String ||
+    object is bool ||
+    object is List
+    ) {
     if (c) return '${p("ye")}$type${p("re")} { ${colourType(object)} }';
     return '$type { ${object.toString()} }';
   }
