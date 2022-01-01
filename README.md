@@ -35,4 +35,4 @@ Vector {
 
 This repository is managed under the AGPL v3 license.
 
-© devnote-dev 2021
+© 2021-2022 devnote-dev
